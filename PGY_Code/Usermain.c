@@ -11,7 +11,7 @@ void Pgy_Fast_Loop()
 {
     // global_time += 5e-5;
 
-    // User_Communication_Loop();
+
     TOP_PLL_Loop(&Top_Rotor_Hall, (float)ENCOD_PLL.ADC_X, (float)ENCOD_PLL.ADC_Y, 5e-5, 10);
     NOTOP_PLL_Loop(&Top_Axis_Hall, (float)ENCOD_PLL.ADC_Z, (float)ENCOD_PLL.ADC_W, 5e-5, 1, 3.1415926f/4);
 }
@@ -19,6 +19,6 @@ void Pgy_Fast_Loop()
 void Pgy_Slow_Loop()
 {
     // global_time += 1e-3;
-
+    // User_Communication_Loop();
     Axis_Pos_Comp_Loop();
 }
