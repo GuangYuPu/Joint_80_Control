@@ -1,0 +1,141 @@
+
+
+#include "MyProject.h"
+//void Current_calibrateOffsets(MOTORController *M);
+
+PhaseCurrent_s PhasecurrentM0,PhasecurrentM1;
+
+/******************************************************************************/
+void LowsideCurrentSense(MOTORController *M,float _shunt_resistor, float _gain, int _pinA, int _pinB, int _pinC)
+{
+	float volts_to_amps_ratio;
+	
+	M->pinA = _pinA;
+	M->pinB = _pinB;
+	M->pinC = _pinC;
+	
+//	volts_to_amps_ratio = 0.00080566f /_shunt_resistor / _gain; // 
+	volts_to_amps_ratio = -0.0201516015625f;
+	M->gain_a = volts_to_amps_ratio;
+	M->gain_b = volts_to_amps_ratio;
+	M->gain_c = volts_to_amps_ratio;
+	
+	//printf("gain_a:%.2f,gain_b:%.2f,gain_c:%.2f.\r\n",gain_a,gain_b,gain_c);  //必须屏蔽，这句话打印会导致下面的函数执行不正常，一下午没有找到原因
+}
+/******************************************************************************/
+
+void ADC_Init_synch(void)
+{
+	ADC_Common_Init();          //初始化ADC的引脚和通用配置，设置中断
+    ADC1_DMA_Init();            //配置DMA模式，转换温度检测和vbus，温度检测在simpleFOC中没有使用，开始转换
+    ADC2_TRGO_Init();           //配置
+    ADC3_TRGO_Init();           //配置
+	//HAL_TIM_Base_Start(&htim2);
+
+    timer_enable(TIMER0);
+    timer_enable(TIMER7);
+	timer_enable(TIMER2);
+
+
+
+	TIMER_CH1CV(TIMER2 ) = PWM_Period/2-1;//一个周期采样两次
+	
+
+	motor_status = ADCOfst;
+	
+
+	
+
+}
+/******************************************************************************/
+//void LowsideCurrentSense_Init(MOTORController *M)
+//{
+
+//	Current_calibrateOffsets(M); //检测偏置电压，也就是电流0A时的运放输出电压值，理论值=1.65V
+//}
+/******************************************************************************/
+// Function finding zero offsets of the ADC
+void Current_calibrateOffsets(MOTORController *M, MOTORController*N)
+{
+	//母线电压一上电就有，不进行矫正
+	static uint16_t ad_flag = 0;
+	
+//	M->offset_ia=0;
+//	M->offset_ib=0;
+//	M->offset_ic=0;
+	
+	// read the adc voltage 1000 times ( arbitrary number )
+	if(ad_flag<256)
+	{
+
+		 M->offset_suma += M->phA;
+		 M->offset_sumb += M->phB;
+		 M->offset_sumc += M->phC;
+		
+		 N->offset_suma += N->phA;
+		 N->offset_sumb += N->phB;
+		 N->offset_sumc += N->phC;
+		i2cRead(I2C1,SLAVE_ADDR, ANGLE_REGISTER_HIGH_ADDR, 8, ENCODER.buf, sizeof(ENCODER.buf));
+//		HAL_I2C_Mem_Read_DMA(&hi2c2,SLAVE_ADDR, ANGLE_REGISTER_HIGH_ADDR, I2C_MEMADD_SIZE_8BIT, ENCODER.buf_s, sizeof(ENCODER.buf_s));
+	}
+	else
+	{
+	// calculate the mean offsets
+		 M->offset_ia = M->offset_suma>>8;
+		 M->offset_ib = M->offset_sumb>>8;
+		 M->offset_ic = M->offset_sumc>>8;
+
+		 N->offset_ia = N->offset_suma>>8;
+		 N->offset_ib = N->offset_sumb>>8;
+		 N->offset_ic = N->offset_sumc>>8;
+		
+		ENCODER_Get();
+		ENCODER.angle_old = ENCODER.ANGLE_RAW;
+	   motor_status = Running;
+	
+	TIMER_CH0CV(TIMER0 )=0;
+    TIMER_CH1CV(TIMER0 )=0;
+    TIMER_CH2CV(TIMER0 )=0;
+	
+	TIMER_CH0CV(TIMER7 )=0;
+    TIMER_CH1CV(TIMER7 )=0;
+    TIMER_CH2CV(TIMER7 )=0;
+
+		ad_flag++;
+//	printf("offset_ia:%.4f,offset_ib:%.4f,offset_ic:%.4f.\r\n",M->offset_ia,M->offset_ib,M->offset_ic);
+}
+/******************************************************************************/
+// read all three phase currents (if possible 2 or 3)
+PhaseCurrent_s getPhaseCurrents(MOTORController *M)
+{
+	PhaseCurrent_s current;
+	
+	current.a = (!_isset(M->pinA)) ? 0 : (M->phA - M->offset_ia)*M->gain_a; // amps
+	current.b = (!_isset(M->pinB)) ? 0 : (M->phB - M->offset_ib)*M->gain_b; // amps
+	current.c = (!_isset(M->pinC)) ? 0 : (M->phC - M->offset_ic)*M->gain_c; // amps
+	
+	return current;
+}
+
+void PhaseCurrent(MOTORController *M,PhaseCurrent_s*I)
+{
+	
+	I->a = (M->phA - M->offset_ia)*M->gain_a; // amps
+	I->b = (M->phB - M->offset_ib)*M->gain_b; // amps
+	I->c = (M->phC - M->offset_ic)*M->gain_c; // amps
+	
+}
+
+void CurrentSenseRaw(MOTORController *M,MOTORController *N)
+{
+	/*第一套ABC绕组采样*/
+	M->phA = ADC_VALUE[2];
+	M->phB = ADC_VALUE[1];
+	M->phC = ADC_VALUE[0];
+	
+	/*第二套UVW绕组采样*/
+	N->phA = ADC_VALUE[5];
+	N->phB = ADC_VALUE[4];
+	N->phC = ADC_VALUE[3];
+}
+

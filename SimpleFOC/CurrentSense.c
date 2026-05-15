@@ -1,0 +1,67 @@
+#include "CurrentSense.h"
+#include "Protection.h"
+DQCurrent_s currentM0,currentM1;
+AlphBeta_s AlphBetaCurM0,AlphBetCuraIM1;
+AlphBeta_s AlphBetaVolM0,AlphBetaVolM1;
+/******************************************************************************/
+// function used with the foc algorihtm
+//   calculating DQ currents from phase currents
+//   - function calculating park and clarke transform of the phase currents
+//   - using getPhaseCurrents internally
+DQCurrent_s getFOCCurrents(MOTORController *M,float angle_el)
+{
+    PhaseCurrent_s current;
+    float i_alpha, i_beta;
+    float ct,st;
+    DQCurrent_s ret;
+		current = PhasecurrentM0;
+    // read current phase currents
+//	current = getPhaseCurrents(M);
+
+    // calculate clarke transform
+//    if(!current.c)
+//    {
+        // if only two measured currents
+//        i_alpha = current.a;
+//        i_beta = _1_SQRT3 * current.a + _2_SQRT3 * current.b;
+//    }
+//    if(!current.a)
+//    {
+//        // if only two measured currents
+//        float a = -current.c - current.b;
+//        i_alpha = a;
+//        i_beta = _1_SQRT3 * a + _2_SQRT3 * current.b;
+//    }
+//    if(!current.b)
+//    {
+//        // if only two measured currents
+        float b = -current.a - current.c;
+        i_alpha = current.a;
+        i_beta = _1_SQRT3 * current.a + _2_SQRT3 * b;
+//    }
+//    else
+//    {
+//        // signal filtering using identity a + b + c = 0. Assumes measurement error is normally distributed.
+//        float mid = (1.f/3) * (current.a + current.b + current.c);
+//        float a = current.a - mid;
+//        float b = current.b - mid;
+//        i_alpha = a;
+//        i_beta = _1_SQRT3 * a + _2_SQRT3 * b;
+//    }
+
+    // calculate park transform
+    Trig_Components Local_Vector_Components;
+    Local_Vector_Components = MCM_Trig_Functions(angle_el);
+
+    ct = Local_Vector_Components.hCos;
+    st = Local_Vector_Components.hSin;
+    ret.d = i_alpha * ct + i_beta * st;
+    ret.q = i_beta * ct - i_alpha * st;
+		
+			AlphBetaCurM0.alph = i_alpha;
+			AlphBetaCurM0.beta = i_beta;
+		currentM0 = ret;
+
+
+    return ret;
+}

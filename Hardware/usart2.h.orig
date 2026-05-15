@@ -1,0 +1,63 @@
+
+#ifndef STM32_USART2_H
+#define STM32_USART2_H
+/******************************************************************************/
+#include "stdio.h"
+#include "stdarg.h"
+#include "stm32f4xx.h"
+
+/******************************************************************************/
+#define USART2_BUFFER_SIZE 11
+/******************************************************************************/
+extern uint8_t snd2_buff[USART2_BUFFER_SIZE];
+extern uint8_t rcv2_buff[USART2_BUFFER_SIZE];
+extern unsigned long rcv2_cntr;
+extern unsigned long rcv2_flag;
+/******************************************************************************/
+void USART2_Init(unsigned long bound);
+void USART2_SendDMA(uint32_t len);
+/******************************************************************************/
+#define USART_REC_LEN  			200  	//定义最大接收字节数 200
+#define EN_USART1_RX 			1		//使能（1）/禁止（0）串口1接收
+
+typedef enum 
+{
+  HAL_OK       = 0x00U,
+  HAL_ERROR    = 0x01U,
+  HAL_BUSY     = 0x02U,
+  HAL_TIMEOUT  = 0x03U
+} HAL_StatusTypeDef;
+
+
+/* USER CODE END Includes */
+
+
+/* USER CODE BEGIN Private defines */
+#define BUFFER_SIZE 256
+
+
+/* USER CODE END Private defines */
+
+void MX_USART1_UART_Init(void);
+void MX_USART3_UART_Init(void);
+
+/* USER CODE BEGIN Prototypes */
+void printf_DMA(const char *format,...);
+extern  volatile uint8_t rx_len ;  //接收到一帧数据的长度
+extern volatile uint8_t recv_end_flag; //一帧数据接收完成标志
+extern uint8_t rx_buffer[BUFFER_SIZE];  //接收数据缓存数组
+extern uint8_t tx_buffer[BUFFER_SIZE];  //接收数据缓存数组
+
+
+extern volatile uint8_t tama_rx_len;  //接收一帧数据的长度
+extern volatile uint8_t tama_recv_end_flag; //一帧数据接收完成标志
+extern uint8_t tama_rx_buffer[BUFFER_SIZE];  //接收数据缓存数组
+extern uint8_t tama_tx_buffer[BUFFER_SIZE];  //接收数据缓存数组
+
+
+
+
+
+#endif
+
+

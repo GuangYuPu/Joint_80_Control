@@ -1,0 +1,4 @@
+..\thdz_motor\bootmode.o: ..\EtherCAT\src\bootmode.c
+..\thdz_motor\bootmode.o: ..\EtherCAT\Inc\ecat_def.h
+..\thdz_motor\bootmode.o: D:\keil5MDK\keilV5.32\ARM\ARMCC\Bin\..\include\stdlib.h
+..\thdz_motor\bootmode.o: D:\keil5MDK\keilV5.32\ARM\ARMCC\Bin\..\include\string.h

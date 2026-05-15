@@ -1,0 +1,16 @@
+程序运行逻辑：
+上电后->采集母线电压偏置->待机状态(motor_status = Standby)：此时delay中的嘀嗒中断里，只进行电压温度采集、速度指令爬坡与限幅、速度计算与滤波、电机旋转方向与端部位置估计，而不进入主模式的选择中。
+
+上位机发送运行指令->运行状态(motor_status = Running)->嘀嗒中断能进入主模式选择，运行速度环(位置环)。
+
+上传数据：
+三相电流：ABC相PhasecurrentM0.a, PhasecurrentM0.b, PhasecurrentM0.c; 
+		UVW相PhasecurrentM1.a, PhasecurrentM1.b, PhasecurrentM1.c; 
+电流保护值: M0.IProt；(程序里没法实时改变)
+轮盘转速: ENCODER.SPEED_ROTOR_Rdu;(rpm)
+轮盘位置: ENCODER.ANGLE_ROTOR_Rdu;（0~360）
+电机圈数: ENCODER.turns>>2;（做除以4运算后上传）
+运行状态: motor_status;
+
+母线电压：voltage_power_supply；
+板子温度：BoardTemp

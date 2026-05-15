@@ -1,0 +1,185 @@
+
+#include <stdio.h>
+#include "usart0.h"
+
+/********************************************************************/
+char snd0_buff[USART0_BUFFER_SIZE0];
+char rcv0_buff[USART0_BUFFER_SIZE0];
+unsigned long rcv0_cntr;
+unsigned long rcv0_flag;
+/******************************************************************************/
+//加入以下代码，支持printf函数，而不需要选择MicroLIB
+#if 1
+#pragma import(__use_no_semihosting)
+//标准库需要的支持函数
+struct __FILE 
+{ 
+	int handle; 
+}; 
+
+FILE __stdout;
+//定义_sys_exit避免使用半主机模式
+void _sys_exit(int x) 
+{
+	x = x; 
+} 
+//重定义fputc函数
+int fputc(int ch, FILE *f)
+{
+	while((USART1->SR&0x40)==0);
+	USART1->DR = (u8) ch;
+	return ch;
+}
+#endif  
+/********************************************************************/
+void USART0_Init(unsigned long bound)
+{
+	
+
+	
+	
+	
+		GPIO_InitTypeDef GPIO_InitStructure;
+	USART_InitTypeDef USART_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	DMA_InitTypeDef  DMA_InitStructure;
+	
+	//RCC_Config
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB|RCC_AHB1Periph_DMA1,ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1,ENABLE);
+	
+	//GPIO_AF_Map
+	GPIO_PinAFConfig(GPIOB,GPIO_PinSource6,GPIO_AF_USART1);
+	GPIO_PinAFConfig(GPIOB,GPIO_PinSource7,GPIO_AF_USART1);
+	
+	//GPIO
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6| GPIO_Pin_7;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;   //推挽复用输出
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;  //上拉
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOA,&GPIO_InitStructure);
+	
+	//NVIC
+	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+	
+	NVIC_InitStructure.NVIC_IRQChannel = DMA1_Stream6_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+
+	//USART2
+	USART_DeInit(USART1);
+	USART_InitStructure.USART_BaudRate = bound;
+	USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+	USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
+	USART_InitStructure.USART_Parity = USART_Parity_No;
+	USART_InitStructure.USART_StopBits = USART_StopBits_1;
+	USART_InitStructure.USART_WordLength = USART_WordLength_8b;
+	USART_Init(USART1,&	USART_InitStructure);
+	USART_DMACmd(USART1,USART_DMAReq_Rx,ENABLE);   //DMA收
+	USART_Cmd(USART1,ENABLE);
+	USART_ITConfig(USART1,USART_IT_IDLE,ENABLE);   //接收空闲中断
+	
+	// DMA Tx
+	DMA_DeInit(DMA1_Stream6);
+	DMA_InitStructure.DMA_Channel = DMA_Channel_7;
+	DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)&USART1->DR;
+	DMA_InitStructure.DMA_Memory0BaseAddr = (u32)snd0_buff;
+	DMA_InitStructure.DMA_DIR = DMA_DIR_MemoryToPeripheral;
+	DMA_InitStructure.DMA_BufferSize = USART0_BUFFER_SIZE0;
+	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+	DMA_InitStructure.DMA_Mode = DMA_Mode_Normal;
+	DMA_InitStructure.DMA_Priority = DMA_Priority_Medium; //DMA_Priority_High;
+	DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;
+	DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;
+	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
+	DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+	DMA_Init(DMA1_Stream6, &DMA_InitStructure);
+	//DMA_Cmd(DMA1_Stream6,ENABLE);   //直到发送的时候再使能
+	DMA_ITConfig(DMA1_Stream6,DMA_IT_TC,ENABLE); 
+	
+	// DMA Rec
+	DMA_DeInit(DMA1_Stream5);
+	DMA_InitStructure.DMA_Channel = DMA_Channel_2;
+	DMA_InitStructure.DMA_PeripheralBaseAddr = (u32)&USART1->DR;
+	DMA_InitStructure.DMA_Memory0BaseAddr = (u32)rcv0_buff;
+	DMA_InitStructure.DMA_DIR = DMA_DIR_PeripheralToMemory;
+	DMA_InitStructure.DMA_BufferSize = USART0_BUFFER_SIZE0;
+	DMA_InitStructure.DMA_PeripheralInc = DMA_PeripheralInc_Disable;
+	DMA_InitStructure.DMA_MemoryInc = DMA_MemoryInc_Enable;
+	DMA_InitStructure.DMA_PeripheralDataSize = DMA_PeripheralDataSize_Byte;
+	DMA_InitStructure.DMA_MemoryDataSize = DMA_MemoryDataSize_Byte;
+	DMA_InitStructure.DMA_Mode = DMA_Mode_Circular;
+	DMA_InitStructure.DMA_Priority = DMA_Priority_High;
+	DMA_InitStructure.DMA_FIFOMode = DMA_FIFOMode_Disable;
+	DMA_InitStructure.DMA_FIFOThreshold = DMA_FIFOThreshold_Full;
+	DMA_InitStructure.DMA_MemoryBurst = DMA_MemoryBurst_Single;
+	DMA_InitStructure.DMA_PeripheralBurst = DMA_PeripheralBurst_Single;
+	DMA_Init(DMA1_Stream5, &DMA_InitStructure);
+	DMA_Cmd(DMA1_Stream5,ENABLE);
+}
+/********************************************************************/
+void USART1_SendDMA(uint32_t len)
+{
+		DMA_Cmd(DMA1_Stream6,DISABLE);                         //关闭DMA传输
+	//while(DMA_GetCmdStatus(DMA1_Stream6) != DISABLE){}     //确保DMA可以被设置
+	DMA_SetCurrDataCounter(DMA1_Stream6, len);             //设置传输字节数
+	DMA_Cmd(DMA1_Stream6,ENABLE);                         
+	USART_DMACmd(USART1, USART_DMAReq_Tx, ENABLE);         //开启DMA传输
+}
+/********************************************************************
+ * USART0 接收空闲中断服务函数 
+********************************************************************/
+void USART1_IRQHandler(void)
+{
+	if(USART_GetITStatus(USART1,USART_IT_IDLE) == SET)
+	{
+		rcv0_cntr=USART1->SR;
+		rcv0_cntr=USART1->DR;     //清除中断标志USART_ClearITPendingBit(USART2,USART_IT_RXNE)
+		rcv0_cntr=USART0_BUFFER_SIZE0-DMA_GetCurrDataCounter(DMA1_Stream5);  //读取接收字节个数
+		DMA_Cmd(DMA1_Stream5,DISABLE);                           //关闭DMA传输
+		while(DMA_GetCmdStatus(DMA1_Stream5) != DISABLE){}       //确保DMA可以被设置
+		DMA_SetCurrDataCounter(DMA1_Stream5,USART0_BUFFER_SIZE0); //数据传输量
+		DMA_Cmd(DMA1_Stream5,ENABLE);                            //开启DMA传输
+		rcv0_flag=1;
+	}
+}
+/********************************************************************
+ * USART0 DMA发送中断服务函数 
+********************************************************************/
+void DMA1_Channel7_IRQHandler  (void)
+{
+if(DMA_GetITStatus(DMA1_Stream6,DMA_IT_TCIF6) == SET)
+	{
+		DMA_ClearITPendingBit(DMA1_Stream6,DMA_IT_TCIF6);
+		DMA_Cmd(DMA1_Stream6,DISABLE);   //本次发送完成，关闭DMA，下次使用再打开
+	}
+}
+/********************************************************************
+void USART0_one(uint8_t da)
+{
+	USART_SendData(USART0,da);
+	while(USART_GetFlagStatus(USART0,USART_FLAG_TXE)==RESET);	//判断是否发送完成
+}
+***************************************/
+/*
+void USART0_send(char *p,uint32_t num)
+{
+	while(num--)
+	{
+		USART_SendData(USART0,*p++);
+		while(USART_GetFlagStatus(USART0,USART_FLAG_TXE)==RESET);	//判断是否发送完成
+	}
+}
+*/
+/********************************************************************/
+

@@ -1,0 +1,43 @@
+..\thdz_motor\hallless.o: ..\SYSTEM\Hallless.c
+..\thdz_motor\hallless.o: ..\SYSTEM\Hallless.h
+..\thdz_motor\hallless.o: ..\USER\stm32f4xx.h
+..\thdz_motor\hallless.o: ..\CORE\core_cm4.h
+..\thdz_motor\hallless.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+..\thdz_motor\hallless.o: ..\CORE\core_cmInstr.h
+..\thdz_motor\hallless.o: ..\CORE\core_cmFunc.h
+..\thdz_motor\hallless.o: ..\CORE\core_cm4_simd.h
+..\thdz_motor\hallless.o: ..\USER\system_stm32f4xx.h
+..\thdz_motor\hallless.o: ..\USER\stm32f4xx_conf.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_adc.h
+..\thdz_motor\hallless.o: ..\USER\stm32f4xx.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_crc.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_dbgmcu.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_dma.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_exti.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_flash.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_gpio.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_i2c.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_iwdg.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_pwr.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_rcc.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_rtc.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_sdio.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_spi.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_syscfg.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_tim.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_usart.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_wwdg.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\misc.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_cryp.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_hash.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_rng.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_can.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_dac.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_dcmi.h
+..\thdz_motor\hallless.o: ..\FWLIB\inc\stm32f4xx_fsmc.h
+..\thdz_motor\hallless.o: ..\SYSTEM\State_Machine.h
+..\thdz_motor\hallless.o: ..\SYSTEM\Tim1_PWM.h
+..\thdz_motor\hallless.o: ..\SYSTEM\Control stage parameters.h
+..\thdz_motor\hallless.o: ..\SYSTEM\Drive parameters.h
+..\thdz_motor\hallless.o: ..\SYSTEM\PMSM motor parameters.h
+..\thdz_motor\hallless.o: ..\SYSTEM\PI_Cale.h

@@ -1,0 +1,153 @@
+/**
+  ******************************************************************************
+  * File Name          : SPI.c
+  * Description        : This file provides code for the configuration
+  *                      of the SPI instances.
+  ******************************************************************************
+  * @attention
+  *
+  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
+  * All rights reserved.</center></h2>
+  *
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
+  *
+  ******************************************************************************
+  */
+
+/* Includes ------------------------------------------------------------------*/
+#include "MyProject.h"
+
+/* USER CODE BEGIN 0 */
+
+/* USER CODE END 0 */
+
+spi_parameter_struct hspi3;
+
+/* SPI3 init function */
+void MX_SPI3_Init(void)
+{
+
+
+
+ 
+    rcu_periph_clock_enable(RCU_SPI2);
+
+    /* SPI5 parameter config */
+    hspi3.trans_mode           = SPI_TRANSMODE_FULLDUPLEX;
+    hspi3.device_mode          = SPI_MASTER;
+    hspi3.frame_size           = SPI_FRAMESIZE_8BIT;
+    hspi3.clock_polarity_phase = SPI_CK_PL_LOW_PH_1EDGE;
+    hspi3.nss                  = SPI_NSS_SOFT;
+    hspi3.prescale             = SPI_PSC_2;
+    hspi3.endian               = SPI_ENDIAN_MSB;
+
+    spi_init(SPI2, &hspi3);
+
+    /* enable SPI5 */
+    spi_enable(SPI2);
+  
+  
+  
+  
+}
+
+void HAL_SPI_MspInit(spi_parameter_struct* spiHandle)
+{
+
+ 
+  
+    rcu_periph_clock_enable(RCU_GPIOC);
+    rcu_periph_clock_enable(RCU_GPIOA);
+
+    /* PC10-LANSCK   PC11-LANSIOI  PC12-LANSIO0*/
+    gpio_af_set(GPIOC, GPIO_AF_5, GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 );
+    gpio_mode_set(GPIOC, GPIO_MODE_AF, GPIO_PUPD_NONE, GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 );
+    gpio_output_options_set(GPIOC, GPIO_OTYPE_PP, GPIO_OSPEED_25MHZ, GPIO_PIN_10 | GPIO_PIN_11 );
+    /*LAN_CS*/
+  
+    gpio_mode_set(GPIOA, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLUP, GPIO_PIN_15);
+    gpio_output_options_set(GPIOA, GPIO_OTYPE_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_15);
+    gpio_bit_set(GPIOA, GPIO_PIN_15); 
+  
+  
+  
+  
+}
+
+void HAL_SPI_MspDeInit(spi_parameter_struct* spiHandle)
+{
+
+ 
+  /* USER CODE BEGIN SPI3_MspDeInit 0 */
+
+  /* USER CODE END SPI3_MspDeInit 0 */
+    /* Peripheral clock disable */
+    rcu_periph_clock_disable(RCU_SPI2);
+  
+    /**SPI3 GPIO Configuration    
+    PB3     ------> SPI3_SCK
+    PB4     ------> SPI3_MISO
+    PB5     ------> SPI3_MOSI 
+    */
+  //  rcu_periph_clock_disable(GPIOC, GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12);
+
+  /* USER CODE BEGIN SPI3_MspDeInit 1 */
+
+  /* USER CODE END SPI3_MspDeInit 1 */
+  
+} 
+
+/* USER CODE BEGIN 1 */
+/**************SPIÇý¶¯²âÊÔ**************************/
+unsigned long SPIReadDWord_test(unsigned short Address)
+{
+	uint32_t dwResult;
+	uint8_t dwResult1[4];
+	uint8_t wAddr[2];
+	uint8_t CMD_FAST_READ1=0x0b;
+	uint8_t CMD_FAST_READ_DUMMY1=1;
+	wAddr[0]=Address/256;
+	wAddr[1]=Address%256;
+//	wAddr.Val  = Address;
+	//Assert CS line
+//	CSLOW();
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_RESET);
+	//Write Command
+	HAL_SPI_Transmit(&hspi3, &CMD_FAST_READ1, 1,1000);	
+	//Write Address
+	HAL_SPI_Transmit(&hspi3, wAddr, 2,10000);
+	//Dummy Byte
+	HAL_SPI_Transmit(&hspi3,&CMD_FAST_READ_DUMMY1,1,1000);
+	HAL_SPI_Receive(&hspi3,dwResult1,4,1000);
+	dwResult=(((uint32_t)dwResult1[3]<<24) + 
+					 ((uint32_t)dwResult1[2]<<16) +
+					 ((uint32_t)dwResult1[1]<<8)  +
+					 ((uint32_t)dwResult1[0]));
+//	//Write Command
+//	SPIWriteByte(CMD_FAST_READ);//0x0b
+//    //Write Address
+//	SPIWriteByte(wAddr.byte.HB);
+//	SPIWriteByte(wAddr.byte.LB);
+//			
+//	//Dummy Byte
+//	SPIWriteByte(CMD_FAST_READ_DUMMY);
+//    //Read Bytes
+//    dwResult.byte.LB = SPIReadByte();
+//    dwResult.byte.HB = SPIReadByte();
+//    dwResult.byte.UB = SPIReadByte();
+//    dwResult.byte.MB = SPIReadByte();
+    //De-Assert CS line
+//		CSHIGH();
+		    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_3, GPIO_PIN_SET);
+		return dwResult;
+}
+
+
+
+
+/* USER CODE END 1 */
+
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

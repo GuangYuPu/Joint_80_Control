@@ -1,0 +1,247 @@
+/* USER CODE BEGIN Header */
+/**
+  ******************************************************************************
+  * @file           : main.c
+  * @brief          : Main program body
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2024 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
+  */
+/* USER CODE END Header */
+/* Includes ------------------------------------------------------------------*/
+#include "main.h"
+
+
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+#include "string.h"
+#include "delay.h"
+#include <string.h>
+#include "MyProject.h"
+//#include "user.h"
+
+#include "el9800hw.h"
+#include "applInterface.h"
+#include "cia402appl.h"
+
+#include "lowsideCurrentsense.h"
+#include "BLDCMotor.h"
+#include "Protection.h"
+#include "tamagawa.h"
+#include "AS5600.h"
+#include "MotorInit.h"
+
+uint8_t data_id0;
+
+
+///EtherCAT
+extern u16 CiA402_Init(void);
+extern u16 APPL_GenerateMapping(UINT16* pInputSize,UINT16* pOutputSize);
+extern void CiA402_DeallocateAxis(void);
+void commander_run(void);
+
+float Votagle_bus;
+void GPIO_Configure(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+    RCC_AHB1PeriphResetCmd( RCC_AHB1Periph_GPIOA, ENABLE); 
+	RCC_AHB1PeriphResetCmd( RCC_AHB1Periph_GPIOB, ENABLE); 
+	RCC_AHB1PeriphResetCmd( RCC_AHB1Periph_GPIOC, ENABLE); 
+	RCC_AHB1PeriphResetCmd( RCC_AHB1Periph_GPIOD, ENABLE); 
+	RCC_AHB1PeriphResetCmd( RCC_AHB1Periph_GPIOH, ENABLE); 
+	 
+	 
+	
+	GPIO_InitStructure.GPIO_Pin = LED_Pin ;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;   //推挽复用输出
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;  //上拉
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(LED_GPIO_Port,&GPIO_InitStructure);
+	GPIO_SetBits(LED_GPIO_Port, LED_Pin);
+
+    GPIO_InitStructure.GPIO_Pin = RS485_EN_Pin ;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;   //推挽复用输出
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;  //上拉
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(RS485_EN_GPIO_Port,&GPIO_InitStructure);	//亮
+	 GPIO_ResetBits(RS485_EN_GPIO_Port, RS485_EN_Pin);
+
+    
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10| GPIO_Pin_11;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;   //推挽复用输出
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP;  //上拉
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(GPIOB,&GPIO_InitStructure);	//亮
+
+    GPIO_SetBits(GPIOB, GPIO_Pin_10);    //亮
+
+		GPIO_SetBits(GPIOB, GPIO_Pin_11); 
+		
+__nop();
+__nop();
+__nop();
+__nop();
+__nop();
+__nop();
+__nop();
+__nop();
+__nop();
+__nop();
+}
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+
+  
+int main(void)
+{
+    GPIO_Configure();
+    USART2_Init(2500000);         
+		USART0_Init(115200);
+    TIM1_PWM_Init();             //M0接口，完成配置，但没有使能
+    TIM8_PWM_Init();             //M1接口，完成配置，但没有使能
+	   
+     I2CX_init();
+    systick_CountInit();         //systick时钟开启1ms中断模式
+	
+  //EtherCAT初始化代码////////////////////////////
+ /*   HW_Init();
+    MainInit();
+    CiA402_Init();
+    APPL_GenerateMapping(&nPdInputSize,&nPdOutputSize);
+    bRunApplication = TRUE;*/
+	//////////////////////
+   // HAL_Init();
+//	IIC_read_len(SLAVE_ADDR, ANGLE_REGISTER_HIGH_ADDR,ENCODER.buf, sizeof(ENCODER.buf));
+		MotorInit();              //电机初始化
+    ADC_Init_synch();         //ADC初始化和定时器同步
+	//printf("Motor ready.\r\n");
+//	 TIMER_CH0CV(TIMER0 )=PWM_Period;
+
+  while (1)
+  {
+		//gpio_bit_toggle(LED_GPIO_Port,LED_Pin);
+//		IIC_read_len(SLAVE_ADDR, ANGLE_REGISTER_HIGH_ADDR,ENCODER.buf, sizeof(ENCODER.buf));
+//		ENCODER_Get();
+//		printf("angle: %d\n",ENCODER.ANGLE_RAW);
+		//delay_ms(1000);
+//		
+
+//		gpio_bit_reset(LED_GPIO_Port,LED_Pin);
+		//commander_run();  //指令接收
+//	 do
+//    {
+//        MainLoop();//ethercat主循环
+//	//printf("%d %d %d\r\n",ACTUAL_PST, LocalAxes[0].Objects.objTargetPosition,prescaler);
+
+//    } while (bRunApplication == TRUE);
+
+//    CiA402_DeallocateAxis();
+
+//    HW_Release();
+//    return 0;
+	
+	
+
+	   
+  }
+	  
+}
+
+/**
+  * @brief System Clock Configuration
+  * @retval None
+  */
+void SystemClock_Config(void)
+{
+
+}
+
+/* USER CODE BEGIN 4 */
+void commander_run(void)
+{
+	if(rcv0_flag==1)
+	{
+		rcv0_flag=0;
+		switch(rcv0_buff[0])
+		{
+			
+
+				
+			case 'H':
+//				USART2_SendDMA(sprintf(snd2_buff,"Hello World!\r\n"));
+			
+//				HAL_UART_Transmit_DMA(&huart1,"hello windows",13);
+				printf("hello windows\r\n");
+				break;
+			
+			case 'R':
+				motor_status = Running;
+				M0.enable = 1;
+				M1.enable = 1;
+				break;
+			case 'Y':
+				M0.enable = 1;
+				M1.enable = 1;
+			//	motor_status = PrePos;
+				break;
+			case 'V':
+				
+				break;
+			
+			case'P':
+				PWMShut();
+				break;
+
+		}
+		memset(rcv0_buff,0,16);  
+		
+		
+	//	HAL_UART_Receive_DMA(&huart1,rx_buffer,BUFFER_SIZE);
+	}
+	
+	
+}
+/* USER CODE END 4 */
+
+/**
+  * @brief  This function is executed in case of error occurrence.
+  * @retval None
+  */
+void Error_Handler(void)
+{
+  /* USER CODE BEGIN Error_Handler_Debug */
+  /* User can add his own implementation to report the HAL error return state */
+  __disable_irq();
+  while (1)
+  {
+  }
+  /* USER CODE END Error_Handler_Debug */
+}
+
+#ifdef  USE_FULL_ASSERT
+/**
+  * @brief  Reports the name of the source file and the source line number
+  *         where the assert_param error has occurred.
+  * @param  file: pointer to the source file name
+  * @param  line: assert_param error line source number
+  * @retval None
+  */
+void assert_failed(uint8_t *file, uint32_t line)
+{
+  /* USER CODE BEGIN 6 */
+  /* User can add his own implementation to report the file name and line number,
+     ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
+  /* USER CODE END 6 */
+}
+#endif /* USE_FULL_ASSERT */

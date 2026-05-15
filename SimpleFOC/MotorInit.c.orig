@@ -1,0 +1,32 @@
+#include "foc_utils.h"
+#include "MotorInit.h"
+#include "lowsideCurrentsense.h"
+#include "pid.h"
+void MotorInit(void)
+{
+//	HAL_ADC_Start_DMA(&hadc2,(uint32_t*)ADC2_VALUE,3);
+	
+	
+	M0.id = 0;
+	M0.IProt = 15.0;
+	M0.enable = 0;  //电机绕组使能 0 为不使能，1为使能
+	M0.controller = Type_FPVc;
+	M0.offset_ia=0;
+	M0.offset_ib=0;
+	M0.offset_ic=0;
+	
+	M1.id = 1;
+	M1.IProt = M0.IProt;
+	M1.enable = 0;
+	M1.controller = M0.controller;
+	M1.offset_ia=0;
+	M1.offset_ib=0;
+	M1.offset_ic=0;
+	
+	
+	LowsideCurrentSense(&M0,0.002,20,ADC_CHANNEL_4,NOT_SET,ADC_CHANNEL_6);
+	LowsideCurrentSense(&M1,0.002,20,ADC_CHANNEL_4,NOT_SET,ADC_CHANNEL_6);
+	
+	PID_init(&M0);
+	PID_init(&M1);
+}
