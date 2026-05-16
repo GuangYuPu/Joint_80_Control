@@ -96,12 +96,12 @@ int16_t comp_I[COMP_TABLE_SIZE]      = {0};
 uint8_t calib_valid[COMP_TABLE_SIZE] = {0};
 uint8_t calib_done                   = 1;
 
-void Axis_Pos_Comp_Loop(void)
+void Axis_Pos_Comp_Loop(float we_ref, float ratio, int16_t theta_in, float Ts)
 {
     static uint8_t align_flag = 0;
-    theta_f += (Top_Rotor_Hall.we / (35 * 10)) * 1e-3;
-    if (Top_Axis_Hall.TOP_PLL_Theta <= -32700 || Top_Axis_Hall.TOP_PLL_Theta >= 32700) {
-        theta_f    = ((float)Top_Axis_Hall.TOP_PLL_Theta) * TPI_PGY / 65535;
+    theta_f += (we_ref / (ratio)) * Ts;
+    if (theta_in <= -32700 || theta_in >= 32700) {
+        theta_f    = ((float)theta_in) * TPI_PGY / 65535;
         align_flag = 1;
     }
     theta_I = (int16_t)(theta_f / TPI_PGY * 65535);
@@ -116,7 +116,7 @@ void Axis_Pos_Comp_Loop(void)
         // 当theta_I处于该区间中心附近±30范围内时记录补偿值
         int32_t center = INT16_MIN + (idx32 * RANGE / COMP_TABLE_SIZE) + (RANGE / (2 * COMP_TABLE_SIZE));
         if (theta_I >= center - 30 && theta_I <= center + 30) {
-            comp_I[idx]      = theta_I - Top_Axis_Hall.TOP_PLL_Theta;
+            comp_I[idx]      = theta_I - theta_in;
             calib_valid[idx] = 1;
         }
 
@@ -157,6 +157,6 @@ void Axis_Pos_Comp_Loop(void)
         }
 
         // 输出补偿后的位置
-        Theta_O = Top_Axis_Hall.TOP_PLL_Theta + (int16_t)comp_val;
+        Theta_O = theta_in + (int16_t)comp_val;
     }
 }

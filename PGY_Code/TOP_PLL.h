@@ -40,6 +40,6 @@ void TOP_PLL_Init(Top_Pll_t *Top_Hall);
 void TOP_PLL_Loop(Top_Pll_t *Top_Hall, float alfa, float beta, float Ts, float np);
 void NOTOP_PLL_Loop(Top_Pll_t *Top_Hall, float alfa, float beta, float Ts, float np, float delta);
 
-void Axis_Pos_Comp_Loop(void);
+void Axis_Pos_Comp_Loop(float we_ref, float ratio, int16_t theta_in, float Ts);
 
 #endif

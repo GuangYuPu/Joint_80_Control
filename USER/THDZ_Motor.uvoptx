@@ -288,11 +288,6 @@
         <Ww>
           <count>27</count>
           <WinNumber>1</WinNumber>
-          <ItemText>TIM1,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>28</count>
-          <WinNumber>1</WinNumber>
           <ItemText>HALL_Comp</ItemText>
         </Ww>
       </WatchWindow1>

@@ -21,7 +21,7 @@ void Pgy_Slow_Loop()
 {
     // global_time += 1e-3;
     // User_Communication_Loop();
-    Axis_Pos_Comp_Loop();
+    Axis_Pos_Comp_Loop(Top_Rotor_Hall.we, 350, Top_Axis_Hall.TOP_PLL_Theta, 1e-3);
 }
 
 void Pgy_MainLoop()
