@@ -75,3 +75,4 @@
 ..\thdz_motor\top_pll.o: ..\PGY_Code\MCU_Com.h
 ..\thdz_motor\top_pll.o: ..\PGY_Code\TOP_PLL.h
 ..\thdz_motor\top_pll.o: ..\PGY_Code\FSM.h
+..\thdz_motor\top_pll.o: ..\PGY_Code\Flash_Pgy.h
