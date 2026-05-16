@@ -239,19 +239,19 @@ void ADC_IRQHandler(void) // ADC中断
         ADC1->SR = ~ADC_SR_JEOC;
 
         //        ENCOD_PLL.ADC_X = ADC1->JDR3;
-        ENCOD_PLL.ADC_Z = ADC1->JDR2 - 2055;
-        ENCOD_PLL.ADC_W = ADC1->JDR3 - 2038;
-        ENCOD_PLL.ADC_W = ENCOD_PLL.ADC_W * 1.0303f;
+        ENCOD_PLL.ADC_Z = ADC1->JDR2 - (int16_t)HALL_Comp[3];
+        ENCOD_PLL.ADC_W = ADC1->JDR3 - (int16_t)HALL_Comp[0];
+        ENCOD_PLL.ADC_W = ENCOD_PLL.ADC_W * HALL_Comp[5];
 
         ENCOD_PLL.ADC_X = ADC1->JDR1;
-        ENCOD_PLL.ADC_X = ENCOD_PLL.ADC_X - 2052; // 451
+        ENCOD_PLL.ADC_X = ENCOD_PLL.ADC_X - HALL_Comp[1]; // 451
     }
     if ((ADC2->SR & ADC_SR_JEOC) == ADC_SR_JEOC) {
         ADC2->SR = ~ADC_SR_JEOC;
 
         ENCOD_PLL.ADC_Y = ADC2->JDR1;
-        ENCOD_PLL.ADC_Y = ENCOD_PLL.ADC_Y - 2042; // 458
-        ENCOD_PLL.ADC_Y = ENCOD_PLL.ADC_Y * 0.9676238f;
+        ENCOD_PLL.ADC_Y = ENCOD_PLL.ADC_Y - HALL_Comp[2]; // 458
+        ENCOD_PLL.ADC_Y = ENCOD_PLL.ADC_Y * HALL_Comp[4];
         M0.phA          = ADC2->JDR3;
         M0.phC          = ADC2->JDR2;
     }
@@ -514,6 +514,45 @@ void ADC_IRQHandler(void) // ADC中断
             WriteToFlash_FLAG = 1;
             //-----------Write to Flash End--------------
             motor_status = Standby;
+            break;
+        }
+
+        case HallAdcCalib:{
+            TimGpioReInit();
+            M0.enable               = 1;
+            M0.PID_d.ref            = 0;
+            M0.PID_q.ref            = 8;
+            M0.electrical_angle_int += (int16_t)((I_Drag_Frq/(20e3))*65536); // + ABZEncoder.InitPos;
+
+            loopFOC(&M0);
+
+            global_time += (1/20e3);
+
+            if(ADC1->JDR3 >= HallW_M[0]) HallW_M[0] = ADC1->JDR3;
+            if(ADC1->JDR3 <= HallW_M[1]) HallW_M[1] = ADC1->JDR3;
+
+            if(ADC1->JDR2 >= HallZ_M[0]) HallZ_M[0] = ADC1->JDR2;
+            if(ADC1->JDR2 <= HallZ_M[1]) HallZ_M[1] = ADC1->JDR2;
+
+            if(ADC1->JDR1 >= HallX_M[0]) HallX_M[0] = ADC1->JDR1;
+            if(ADC1->JDR1 <= HallX_M[1]) HallX_M[1] = ADC1->JDR1;
+
+            if(ADC2->JDR1 >= HallY_M[0]) HallY_M[0] = ADC2->JDR1;
+            if(ADC2->JDR1 <= HallY_M[1]) HallY_M[1] = ADC2->JDR1;
+
+            if((global_time * I_Drag_Frq) >= (35*10))
+            {
+                HALL_Comp[0] = (HallW_M[0] + HallW_M[1])/2;
+                HALL_Comp[1] = (HallX_M[0] + HallX_M[1])/2;
+                HALL_Comp[2] = (HallY_M[0] + HallY_M[1])/2;
+                HALL_Comp[3] = (HallZ_M[0] + HallZ_M[1])/2;
+
+                HALL_Comp[4] = (HallX_M[0] - HallX_M[1])/(HallY_M[0] - HallY_M[1]);
+                HALL_Comp[5] = (HallW_M[0] - HallW_M[1])/(HallZ_M[0] - HallZ_M[1]);
+
+                MosShut();
+                motor_status = WriteToFlash;
+            }
             break;
         }
     }

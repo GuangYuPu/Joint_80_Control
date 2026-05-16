@@ -6,6 +6,7 @@ void Pgy_Init()
     TOP_PLL_Init(&Top_Rotor_Hall);
     TOP_PLL_Init(&Top_Axis_Hall);
     ReadFromFlash_PGY(comp_I, COMP_TABLE_SIZE, PGY_ADDR_FLASH_SECTOR_5);
+    ReadFromFlash_PGY(HALL_Comp, 12, PGY_ADDR_FLASH_SECTOR_4);
 }
 
 void Pgy_Fast_Loop()
@@ -27,6 +28,7 @@ void Pgy_MainLoop()
 {
     if (WriteToFlash_FLAG) {
         WriteToFlash_PGY(comp_I, COMP_TABLE_SIZE, PGY_ADDR_FLASH_SECTOR_5);
+        WriteToFlash_PGY(HALL_Comp, 12, PGY_ADDR_FLASH_SECTOR_4);
         WriteToFlash_FLAG = 0;
     }
 }

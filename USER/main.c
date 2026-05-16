@@ -125,9 +125,9 @@ int main(void)
         //			        printf_DMA("ANGLE:%f,%f,%f\n", ENCOD_PLL.SPEED_ROTOR_S,currentM0.q,M0.PID_vel.output);
 
         // printf_DMA("ANGLE:%f,%f,%f,%d\n", ENCOD_PLL.SPEED_ROTOR_FILT, currentM0.q, M0.PID_vel.output, ENCOD_PLL.ADC_Z);
-        // printf_DMA("ANGLE:%f,%d,%d\n", Top_Axis_Hall.error[0], ENCOD_PLL.ADC_W, ENCOD_PLL.ADC_Z);
+        printf_DMA("ANGLE:%d,%d,%d,%d\n", ENCOD_PLL.ADC_X, ENCOD_PLL.ADC_Y, ENCOD_PLL.ADC_W, ENCOD_PLL.ADC_Z);
         // printf_DMA("ANGLE:%d,%d,%f,%f\n", Top_Axis_Hall.TOP_PLL_Theta, Top_Rotor_Hall.TOP_PLL_Theta, Top_Axis_Hall.n_m, Top_Rotor_Hall.n_m);
-        printf_DMA("ANGLE:%d,%d,%d,%f\n", Top_Axis_Hall.TOP_PLL_Theta, theta_I, Theta_O, Top_Axis_Hall.amplitude);
+        // printf_DMA("ANGLE:%d,%d,%d,%f\n", Top_Axis_Hall.TOP_PLL_Theta, theta_I, Theta_O, Top_Axis_Hall.amplitude);
         Pgy_MainLoop();
         						//   printf_DMA( "angle:%d,%d,%d\n",ENCOD_PLL.ADC_X,ENCOD_PLL.ADC_Y,ENCOD_PLL.ANGLE_ROTOR_MINT_Calib_E);
 
