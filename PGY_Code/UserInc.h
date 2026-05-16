@@ -24,5 +24,6 @@
 #include "MCU_Com.h"
 #include "TOP_PLL.h"
 #include "FSM.h"
+#include "Flash_Pgy.h"
 
 #endif

@@ -491,18 +491,18 @@ void ADC_IRQHandler(void) // ADC中断
                 for (uint16_t i = 0; i < COMP_TABLE_SIZE; i++) {
                     calib_valid[i] = 0;
                 }
-            }
-            else{
+            } else {
                 TimGpioReInit();
+                SpeedRef = 5;
             }
-            M0.enable = 1;
-            M0.PID_d.ref = 0;
+            M0.enable               = 1;
+            M0.PID_d.ref            = 0;
             M0.electrical_angle_int = ENCOD_PLL.ANGLE_ROTOR_INT; // + ABZEncoder.InitPos;
             loopFOC(&M0);
 
-            if(calib_done)
-            {
+            if (calib_done) {
                 MosShut();
+                SpeedRef     = 0;
                 motor_status = WriteToFlash;
             }
             break;
@@ -510,7 +510,7 @@ void ADC_IRQHandler(void) // ADC中断
 
         case WriteToFlash: {
             //-----------Write to Flash Begin------------
-            
+            // WriteToFlash_FLAG = 1;
             //-----------Write to Flash End--------------
             motor_status = Standby;
             break;

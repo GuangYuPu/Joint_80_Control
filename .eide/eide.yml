@@ -92,6 +92,7 @@ virtualFolder:
         - path: PGY_Code/Usermain.c
         - path: PGY_Code/TOP_PLL.c
         - path: PGY_Code/FSM.c
+        - path: PGY_Code/Flash_Pgy.c
       folders: []
 dependenceList: []
 outDir: build

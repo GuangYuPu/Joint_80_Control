@@ -6,5 +6,6 @@
 void Pgy_Init();
 void Pgy_Fast_Loop();
 void Pgy_Slow_Loop();
+void Pgy_MainLoop();
 
 #endif

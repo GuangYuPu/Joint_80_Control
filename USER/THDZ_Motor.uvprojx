@@ -732,6 +732,11 @@
               <FileType>1</FileType>
               <FilePath>..\PGY_Code\FSM.c</FilePath>
             </File>
+            <File>
+              <FileName>Flash_Pgy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\PGY_Code\Flash_Pgy.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

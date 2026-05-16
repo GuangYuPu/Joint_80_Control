@@ -93,9 +93,9 @@ void NOTOP_PLL_Loop(Top_Pll_t *Top_Hall, float alfa, float beta, float Ts, float
 
 /*----------compensation-----------*/
 
-int16_t comp_I[COMP_TABLE_SIZE];
+int16_t comp_I[COMP_TABLE_SIZE] = {0};
 uint8_t calib_valid[COMP_TABLE_SIZE] = {0};
-uint8_t calib_done                   = 0;
+uint8_t calib_done                   = 1;
 
 void Axis_Pos_Comp_Loop(void)
 {

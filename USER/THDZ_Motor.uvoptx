@@ -275,6 +275,16 @@
           <WinNumber>1</WinNumber>
           <ItemText>Top_Axis_Hall,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>25</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>comp_I,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>26</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>WriteToFlash_FLAG,0x0A</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
@@ -1147,6 +1157,18 @@
       <bDave2>0</bDave2>
       <PathWithFileName>..\PGY_Code\FSM.c</PathWithFileName>
       <FilenameWithoutPath>FSM.c</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>7</GroupNumber>
+      <FileNumber>65</FileNumber>
+      <FileType>1</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\PGY_Code\Flash_Pgy.c</PathWithFileName>
+      <FilenameWithoutPath>Flash_Pgy.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

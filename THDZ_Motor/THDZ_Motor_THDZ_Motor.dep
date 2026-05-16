@@ -1,6 +1,6 @@
 Dependencies for Project 'THDZ_Motor', Target 'THDZ_Motor': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (.\main.c)(0x6A06E7D0)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\main.o --omf_browse ..\thdz_motor\main.crf --depend ..\thdz_motor\main.d)
+F (.\main.c)(0x6A081A00)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\main.o --omf_browse ..\thdz_motor\main.crf --depend ..\thdz_motor\main.d)
 I (main.h)(0x69DBAFA6)
 I (stm32f4xx.h)(0x66E69C56)
 I (..\CORE\core_cm4.h)(0x5710F350)
@@ -66,15 +66,16 @@ I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
 I (..\SimpleFOC\tamagawa.h)(0x669A2654)
 I (..\SimpleFOC\MotorInit.h)(0x6650404C)
 I (..\Hardware\ABZ.h)(0x66C34ACE)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
 I (..\Hardware\OrthPLL.h)(0x6A0465C3)
 I (..\SimpleFOC\Estimate.h)(0x681852D4)
-I (..\PGY_Code\UserInc.h)(0x6A06F32B)
+I (..\PGY_Code\UserInc.h)(0x6A0811BF)
 I (..\PGY_Code\User_Para.h)(0x6A06EA81)
-I (..\PGY_Code\Usermain.h)(0x6A05AA5C)
+I (..\PGY_Code\Usermain.h)(0x6A0816E7)
 I (..\PGY_Code\MCU_Com.h)(0x6A045657)
 I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
 I (..\PGY_Code\FSM.h)(0x6A06F47C)
+I (..\PGY_Code\Flash_Pgy.h)(0x6A081736)
 F (.\stm32f4xx_it.c)(0x6672B73C)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\stm32f4xx_it.o --omf_browse ..\thdz_motor\stm32f4xx_it.crf --depend ..\thdz_motor\stm32f4xx_it.d)
 I (stm32f4xx_it.h)(0x6625E9DC)
 I (stm32f4xx.h)(0x66E69C56)
@@ -1487,7 +1488,7 @@ I (..\SimpleFOC\FOCMotor.h)(0x6617BD98)
 I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
 I (..\SYSTEM\Protection.h)(0x68220ACE)
 I (..\SimpleFOC\Estimate.h)(0x681852D4)
-I (..\PGY_Code\UserInc.h)(0x6A06F32B)
+I (..\PGY_Code\UserInc.h)(0x6A0811BF)
 I (..\USER\MyProject.h)(0x6672BC0A)
 I (..\Hardware\usart2.h)(0x66E5620C)
 I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x5E8E3CC2)
@@ -1495,14 +1496,15 @@ I (..\Hardware\i2c.h)(0x667A719E)
 I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x5E8E3CC2)
 I (..\Hardware\spi3.h)(0x634681D6)
 I (..\SimpleFOC\MotorInit.h)(0x6650404C)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
 I (..\PGY_Code\User_Para.h)(0x6A06EA81)
-I (..\PGY_Code\Usermain.h)(0x6A05AA5C)
+I (..\PGY_Code\Usermain.h)(0x6A0816E7)
 I (..\PGY_Code\MCU_Com.h)(0x6A045657)
 I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
 I (..\PGY_Code\FSM.h)(0x6A06F47C)
-F (..\SimpleFOC\FlashRW.c)(0x673498C6)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\flashrw.o --omf_browse ..\thdz_motor\flashrw.crf --depend ..\thdz_motor\flashrw.d)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
+I (..\PGY_Code\Flash_Pgy.h)(0x6A081736)
+F (..\SimpleFOC\FlashRW.c)(0x6A07179F)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\flashrw.o --omf_browse ..\thdz_motor\flashrw.crf --depend ..\thdz_motor\flashrw.d)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
 I (..\USER\stm32f4xx.h)(0x66E69C56)
 I (..\CORE\core_cm4.h)(0x5710F350)
 I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -1555,7 +1557,7 @@ I (..\SimpleFOC\lowsideCurrentsense.h)(0x66503BA0)
 I (..\SimpleFOC\Sensor.h)(0x6617BD0C)
 I (..\SimpleFOC\FOCMotor.h)(0x6617BD98)
 I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
-F (..\Hardware\adc.c)(0x6A06F483)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\adc.o --omf_browse ..\thdz_motor\adc.crf --depend ..\thdz_motor\adc.d)
+F (..\Hardware\adc.c)(0x6A081A96)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\adc.o --omf_browse ..\thdz_motor\adc.crf --depend ..\thdz_motor\adc.d)
 I (..\USER\MyProject.h)(0x6672BC0A)
 I (D:\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
@@ -1620,15 +1622,16 @@ I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
 I (..\Hardware\ABZ.h)(0x66C34ACE)
 I (..\Hardware\OrthPLL.h)(0x6A0465C3)
 I (..\SimpleFOC\Estimate.h)(0x681852D4)
-I (..\PGY_Code\UserInc.h)(0x6A06F32B)
+I (..\PGY_Code\UserInc.h)(0x6A0811BF)
 I (..\SimpleFOC\tamagawa.h)(0x669A2654)
 I (..\SimpleFOC\MotorInit.h)(0x6650404C)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
 I (..\PGY_Code\User_Para.h)(0x6A06EA81)
-I (..\PGY_Code\Usermain.h)(0x6A05AA5C)
+I (..\PGY_Code\Usermain.h)(0x6A0816E7)
 I (..\PGY_Code\MCU_Com.h)(0x6A045657)
 I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
 I (..\PGY_Code\FSM.h)(0x6A06F47C)
+I (..\PGY_Code\Flash_Pgy.h)(0x6A081736)
 F (..\Hardware\i2c.c)(0x68402C07)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\i2c.o --omf_browse ..\thdz_motor\i2c.crf --depend ..\thdz_motor\i2c.d)
 I (..\USER\MyProject.h)(0x6672BC0A)
 I (D:\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
@@ -2411,7 +2414,7 @@ I (..\SimpleFOC\Sensor.h)(0x6617BD0C)
 I (..\SimpleFOC\FOCMotor.h)(0x6617BD98)
 I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
 I (..\SYSTEM\Protection.h)(0x68220ACE)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
 F (..\SimpleFOC\Estimate.c)(0x684D4408)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\estimate.o --omf_browse ..\thdz_motor\estimate.crf --depend ..\thdz_motor\estimate.d)
 I (..\SimpleFOC\Estimate.h)(0x681852D4)
 I (..\USER\main.h)(0x69DBAFA6)
@@ -2468,7 +2471,7 @@ I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
 I (..\Hardware\OrthPLL.h)(0x6A0465C3)
 F (..\PGY_Code\MCU_Com.c)(0x69FB4A92)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\mcu_com.o --omf_browse ..\thdz_motor\mcu_com.crf --depend ..\thdz_motor\mcu_com.d)
 I (..\PGY_Code\MCU_Com.h)(0x6A045657)
-I (..\PGY_Code\UserInc.h)(0x6A06F32B)
+I (..\PGY_Code\UserInc.h)(0x6A0811BF)
 I (..\USER\main.h)(0x69DBAFA6)
 I (..\USER\stm32f4xx.h)(0x66E69C56)
 I (..\CORE\core_cm4.h)(0x5710F350)
@@ -2533,16 +2536,17 @@ I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
 I (..\SimpleFOC\tamagawa.h)(0x669A2654)
 I (..\SimpleFOC\MotorInit.h)(0x6650404C)
 I (..\Hardware\ABZ.h)(0x66C34ACE)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
 I (..\Hardware\OrthPLL.h)(0x6A0465C3)
 I (..\SimpleFOC\Estimate.h)(0x681852D4)
 I (..\PGY_Code\User_Para.h)(0x6A06EA81)
-I (..\PGY_Code\Usermain.h)(0x6A05AA5C)
+I (..\PGY_Code\Usermain.h)(0x6A0816E7)
 I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
 I (..\PGY_Code\FSM.h)(0x6A06F47C)
+I (..\PGY_Code\Flash_Pgy.h)(0x6A081736)
 F (..\PGY_Code\User_Para.c)(0x6A06EA72)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\user_para.o --omf_browse ..\thdz_motor\user_para.crf --depend ..\thdz_motor\user_para.d)
 I (..\PGY_Code\User_Para.h)(0x6A06EA81)
-I (..\PGY_Code\UserInc.h)(0x6A06F32B)
+I (..\PGY_Code\UserInc.h)(0x6A0811BF)
 I (..\USER\main.h)(0x69DBAFA6)
 I (..\USER\stm32f4xx.h)(0x66E69C56)
 I (..\CORE\core_cm4.h)(0x5710F350)
@@ -2607,16 +2611,17 @@ I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
 I (..\SimpleFOC\tamagawa.h)(0x669A2654)
 I (..\SimpleFOC\MotorInit.h)(0x6650404C)
 I (..\Hardware\ABZ.h)(0x66C34ACE)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
 I (..\Hardware\OrthPLL.h)(0x6A0465C3)
 I (..\SimpleFOC\Estimate.h)(0x681852D4)
-I (..\PGY_Code\Usermain.h)(0x6A05AA5C)
+I (..\PGY_Code\Usermain.h)(0x6A0816E7)
 I (..\PGY_Code\MCU_Com.h)(0x6A045657)
 I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
 I (..\PGY_Code\FSM.h)(0x6A06F47C)
-F (..\PGY_Code\Usermain.c)(0x6A06E7F3)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\usermain.o --omf_browse ..\thdz_motor\usermain.crf --depend ..\thdz_motor\usermain.d)
-I (..\PGY_Code\Usermain.h)(0x6A05AA5C)
-I (..\PGY_Code\UserInc.h)(0x6A06F32B)
+I (..\PGY_Code\Flash_Pgy.h)(0x6A081736)
+F (..\PGY_Code\Usermain.c)(0x6A081C8D)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\usermain.o --omf_browse ..\thdz_motor\usermain.crf --depend ..\thdz_motor\usermain.d)
+I (..\PGY_Code\Usermain.h)(0x6A0816E7)
+I (..\PGY_Code\UserInc.h)(0x6A0811BF)
 I (..\USER\main.h)(0x69DBAFA6)
 I (..\USER\stm32f4xx.h)(0x66E69C56)
 I (..\CORE\core_cm4.h)(0x5710F350)
@@ -2681,90 +2686,92 @@ I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
 I (..\SimpleFOC\tamagawa.h)(0x669A2654)
 I (..\SimpleFOC\MotorInit.h)(0x6650404C)
 I (..\Hardware\ABZ.h)(0x66C34ACE)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
-I (..\Hardware\OrthPLL.h)(0x6A0465C3)
-I (..\SimpleFOC\Estimate.h)(0x681852D4)
-I (..\PGY_Code\User_Para.h)(0x6A06EA81)
-I (..\PGY_Code\MCU_Com.h)(0x6A045657)
-I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
-I (..\PGY_Code\FSM.h)(0x6A06F47C)
-F (..\PGY_Code\TOP_PLL.c)(0x6A06EC40)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\top_pll.o --omf_browse ..\thdz_motor\top_pll.crf --depend ..\thdz_motor\top_pll.d)
-I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
-I (..\PGY_Code\UserInc.h)(0x6A06F32B)
-I (..\USER\main.h)(0x69DBAFA6)
-I (..\USER\stm32f4xx.h)(0x66E69C56)
-I (..\CORE\core_cm4.h)(0x5710F350)
-I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
-I (..\CORE\core_cmInstr.h)(0x5710F350)
-I (..\CORE\core_cmFunc.h)(0x5710F350)
-I (..\CORE\core_cm4_simd.h)(0x5710F350)
-I (..\USER\system_stm32f4xx.h)(0x6625E9DC)
-I (..\USER\stm32f4xx_conf.h)(0x6625E9DC)
-I (..\FWLIB\inc\stm32f4xx_adc.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_crc.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_dbgmcu.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_dma.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_exti.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_flash.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_gpio.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_i2c.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_iwdg.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_pwr.h)(0x5710F352)
-I (..\FWLIB\inc\stm32f4xx_rcc.h)(0x5710F352)
-I (..\FWLIB\inc\stm32f4xx_rtc.h)(0x5710F352)
-I (..\FWLIB\inc\stm32f4xx_sdio.h)(0x5710F352)
-I (..\FWLIB\inc\stm32f4xx_spi.h)(0x5710F352)
-I (..\FWLIB\inc\stm32f4xx_syscfg.h)(0x5710F352)
-I (..\FWLIB\inc\stm32f4xx_tim.h)(0x5710F352)
-I (..\FWLIB\inc\stm32f4xx_usart.h)(0x5710F352)
-I (..\FWLIB\inc\stm32f4xx_wwdg.h)(0x5710F352)
-I (..\FWLIB\inc\misc.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_cryp.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_hash.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_rng.h)(0x5710F352)
-I (..\FWLIB\inc\stm32f4xx_can.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_dac.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x5710F350)
-I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x5710F350)
-I (D:\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (..\SYSTEM\delay.h)(0x6770BBC2)
-I (..\USER\MyProject.h)(0x6672BC0A)
-I (D:\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
-I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-I (..\Hardware\usart2.h)(0x66E5620C)
-I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x5E8E3CC2)
-I (..\Hardware\usart0.h)(0x66E56A90)
-I (..\Hardware\timer.h)(0x67862B01)
-I (..\Hardware\i2c.h)(0x667A719E)
-I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x5E8E3CC2)
-I (..\Hardware\spi3.h)(0x634681D6)
-I (..\Hardware\adc.h)(0x684D315A)
-I (..\SYSTEM\Protection.h)(0x68220ACE)
-I (..\SimpleFOC\foc_utils.h)(0x6A06F2B1)
-I (D:\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
-I (..\Hardware\usart.h)(0x6672A5EE)
-I (..\SimpleFOC\dma.h)(0x6617898C)
-I (..\SimpleFOC\AS5600.h)(0x67137120)
-I (..\SimpleFOC\Sensor.h)(0x6617BD0C)
-I (..\SimpleFOC\BLDCMotor.h)(0x6854FF3A)
-I (..\SimpleFOC\pid.h)(0x66781B4A)
-I (..\SimpleFOC\CurrentSense.h)(0x6714CA44)
-I (..\SimpleFOC\lowsideCurrentsense.h)(0x66503BA0)
-I (..\SimpleFOC\FOCMotor.h)(0x6617BD98)
-I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
-I (..\SimpleFOC\tamagawa.h)(0x669A2654)
-I (..\SimpleFOC\MotorInit.h)(0x6650404C)
-I (..\Hardware\ABZ.h)(0x66C34ACE)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
 I (..\Hardware\OrthPLL.h)(0x6A0465C3)
 I (..\SimpleFOC\Estimate.h)(0x681852D4)
 I (..\PGY_Code\User_Para.h)(0x6A06EA81)
-I (..\PGY_Code\Usermain.h)(0x6A05AA5C)
+I (..\PGY_Code\MCU_Com.h)(0x6A045657)
+I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
+I (..\PGY_Code\FSM.h)(0x6A06F47C)
+I (..\PGY_Code\Flash_Pgy.h)(0x6A081736)
+F (..\PGY_Code\TOP_PLL.c)(0x6A08136B)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\top_pll.o --omf_browse ..\thdz_motor\top_pll.crf --depend ..\thdz_motor\top_pll.d)
+I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
+I (..\PGY_Code\UserInc.h)(0x6A0811BF)
+I (..\USER\main.h)(0x69DBAFA6)
+I (..\USER\stm32f4xx.h)(0x66E69C56)
+I (..\CORE\core_cm4.h)(0x5710F350)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (..\CORE\core_cmInstr.h)(0x5710F350)
+I (..\CORE\core_cmFunc.h)(0x5710F350)
+I (..\CORE\core_cm4_simd.h)(0x5710F350)
+I (..\USER\system_stm32f4xx.h)(0x6625E9DC)
+I (..\USER\stm32f4xx_conf.h)(0x6625E9DC)
+I (..\FWLIB\inc\stm32f4xx_adc.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_crc.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_dbgmcu.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_dma.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_exti.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_flash.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_gpio.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_i2c.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_iwdg.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_pwr.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_rcc.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_rtc.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_sdio.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_spi.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_syscfg.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_tim.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_usart.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_wwdg.h)(0x5710F352)
+I (..\FWLIB\inc\misc.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_cryp.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_hash.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_rng.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_can.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_dac.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x5710F350)
+I (D:\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (..\SYSTEM\delay.h)(0x6770BBC2)
+I (..\USER\MyProject.h)(0x6672BC0A)
+I (D:\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (..\Hardware\usart2.h)(0x66E5620C)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x5E8E3CC2)
+I (..\Hardware\usart0.h)(0x66E56A90)
+I (..\Hardware\timer.h)(0x67862B01)
+I (..\Hardware\i2c.h)(0x667A719E)
+I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x5E8E3CC2)
+I (..\Hardware\spi3.h)(0x634681D6)
+I (..\Hardware\adc.h)(0x684D315A)
+I (..\SYSTEM\Protection.h)(0x68220ACE)
+I (..\SimpleFOC\foc_utils.h)(0x6A06F2B1)
+I (D:\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\Hardware\usart.h)(0x6672A5EE)
+I (..\SimpleFOC\dma.h)(0x6617898C)
+I (..\SimpleFOC\AS5600.h)(0x67137120)
+I (..\SimpleFOC\Sensor.h)(0x6617BD0C)
+I (..\SimpleFOC\BLDCMotor.h)(0x6854FF3A)
+I (..\SimpleFOC\pid.h)(0x66781B4A)
+I (..\SimpleFOC\CurrentSense.h)(0x6714CA44)
+I (..\SimpleFOC\lowsideCurrentsense.h)(0x66503BA0)
+I (..\SimpleFOC\FOCMotor.h)(0x6617BD98)
+I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
+I (..\SimpleFOC\tamagawa.h)(0x669A2654)
+I (..\SimpleFOC\MotorInit.h)(0x6650404C)
+I (..\Hardware\ABZ.h)(0x66C34ACE)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
+I (..\Hardware\OrthPLL.h)(0x6A0465C3)
+I (..\SimpleFOC\Estimate.h)(0x681852D4)
+I (..\PGY_Code\User_Para.h)(0x6A06EA81)
+I (..\PGY_Code\Usermain.h)(0x6A0816E7)
 I (..\PGY_Code\MCU_Com.h)(0x6A045657)
 I (..\PGY_Code\FSM.h)(0x6A06F47C)
+I (..\PGY_Code\Flash_Pgy.h)(0x6A081736)
 F (..\PGY_Code\FSM.c)(0x6A06F42C)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\fsm.o --omf_browse ..\thdz_motor\fsm.crf --depend ..\thdz_motor\fsm.d)
 I (..\PGY_Code\FSM.h)(0x6A06F47C)
-I (..\PGY_Code\UserInc.h)(0x6A06F32B)
+I (..\PGY_Code\UserInc.h)(0x6A0811BF)
 I (..\USER\main.h)(0x69DBAFA6)
 I (..\USER\stm32f4xx.h)(0x66E69C56)
 I (..\CORE\core_cm4.h)(0x5710F350)
@@ -2829,10 +2836,86 @@ I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
 I (..\SimpleFOC\tamagawa.h)(0x669A2654)
 I (..\SimpleFOC\MotorInit.h)(0x6650404C)
 I (..\Hardware\ABZ.h)(0x66C34ACE)
-I (..\SimpleFOC\FlashRW.h)(0x6734960E)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
 I (..\Hardware\OrthPLL.h)(0x6A0465C3)
 I (..\SimpleFOC\Estimate.h)(0x681852D4)
 I (..\PGY_Code\User_Para.h)(0x6A06EA81)
-I (..\PGY_Code\Usermain.h)(0x6A05AA5C)
+I (..\PGY_Code\Usermain.h)(0x6A0816E7)
 I (..\PGY_Code\MCU_Com.h)(0x6A045657)
 I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
+I (..\PGY_Code\Flash_Pgy.h)(0x6A081736)
+F (..\PGY_Code\Flash_Pgy.c)(0x6A081DBE)(--c99 --gnu -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -W -O0 --apcs=interwork -I ..\CORE -I ..\SYSTEM -I ..\USER -I ..\FWLIB\inc -I ..\EtherCAT\Inc -I ..\EtherCAT\user -I ..\Hardware -I ..\SimpleFOC -I ..\SYSTEM -I ..\PGY_Code-ID:\Arm\Packs\GigaDevice\GD32F4xx_DFP\3.0.3\Device\F4XX\Include-D__UVISION_VERSION="537" -DGD32F405 -DSTM32F40_41xxx -DUSE_STDPERIPH_DRIVER -D__GNUC__ -D__ICCARM__-o ..\thdz_motor\flash_pgy.o --omf_browse ..\thdz_motor\flash_pgy.crf --depend ..\thdz_motor\flash_pgy.d)
+I (..\PGY_Code\Flash_Pgy.h)(0x6A081736)
+I (..\PGY_Code\UserInc.h)(0x6A0811BF)
+I (..\USER\main.h)(0x69DBAFA6)
+I (..\USER\stm32f4xx.h)(0x66E69C56)
+I (..\CORE\core_cm4.h)(0x5710F350)
+I (D:\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (..\CORE\core_cmInstr.h)(0x5710F350)
+I (..\CORE\core_cmFunc.h)(0x5710F350)
+I (..\CORE\core_cm4_simd.h)(0x5710F350)
+I (..\USER\system_stm32f4xx.h)(0x6625E9DC)
+I (..\USER\stm32f4xx_conf.h)(0x6625E9DC)
+I (..\FWLIB\inc\stm32f4xx_adc.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_crc.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_dbgmcu.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_dma.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_exti.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_flash.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_gpio.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_i2c.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_iwdg.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_pwr.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_rcc.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_rtc.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_sdio.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_spi.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_syscfg.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_tim.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_usart.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_wwdg.h)(0x5710F352)
+I (..\FWLIB\inc\misc.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_cryp.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_hash.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_rng.h)(0x5710F352)
+I (..\FWLIB\inc\stm32f4xx_can.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_dac.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_dcmi.h)(0x5710F350)
+I (..\FWLIB\inc\stm32f4xx_fsmc.h)(0x5710F350)
+I (D:\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (..\SYSTEM\delay.h)(0x6770BBC2)
+I (..\USER\MyProject.h)(0x6672BC0A)
+I (D:\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (D:\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (..\Hardware\usart2.h)(0x66E5620C)
+I (D:\Keil\ARM\ARMCC\include\stdarg.h)(0x5E8E3CC2)
+I (..\Hardware\usart0.h)(0x66E56A90)
+I (..\Hardware\timer.h)(0x67862B01)
+I (..\Hardware\i2c.h)(0x667A719E)
+I (D:\Keil\ARM\ARMCC\include\stdbool.h)(0x5E8E3CC2)
+I (..\Hardware\spi3.h)(0x634681D6)
+I (..\Hardware\adc.h)(0x684D315A)
+I (..\SYSTEM\Protection.h)(0x68220ACE)
+I (..\SimpleFOC\foc_utils.h)(0x6A06F2B1)
+I (D:\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\Hardware\usart.h)(0x6672A5EE)
+I (..\SimpleFOC\dma.h)(0x6617898C)
+I (..\SimpleFOC\AS5600.h)(0x67137120)
+I (..\SimpleFOC\Sensor.h)(0x6617BD0C)
+I (..\SimpleFOC\BLDCMotor.h)(0x6854FF3A)
+I (..\SimpleFOC\pid.h)(0x66781B4A)
+I (..\SimpleFOC\CurrentSense.h)(0x6714CA44)
+I (..\SimpleFOC\lowsideCurrentsense.h)(0x66503BA0)
+I (..\SimpleFOC\FOCMotor.h)(0x6617BD98)
+I (..\SimpleFOC\lowpass_filter.h)(0x6617A8AA)
+I (..\SimpleFOC\tamagawa.h)(0x669A2654)
+I (..\SimpleFOC\MotorInit.h)(0x6650404C)
+I (..\Hardware\ABZ.h)(0x66C34ACE)
+I (..\SimpleFOC\FlashRW.h)(0x6A0718E7)
+I (..\Hardware\OrthPLL.h)(0x6A0465C3)
+I (..\SimpleFOC\Estimate.h)(0x681852D4)
+I (..\PGY_Code\User_Para.h)(0x6A06EA81)
+I (..\PGY_Code\Usermain.h)(0x6A0816E7)
+I (..\PGY_Code\MCU_Com.h)(0x6A045657)
+I (..\PGY_Code\TOP_PLL.h)(0x6A06D861)
+I (..\PGY_Code\FSM.h)(0x6A06F47C)

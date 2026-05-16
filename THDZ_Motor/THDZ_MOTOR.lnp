@@ -63,6 +63,7 @@
 "..\thdz_motor\usermain.o"
 "..\thdz_motor\top_pll.o"
 "..\thdz_motor\fsm.o"
+"..\thdz_motor\flash_pgy.o"
 --library_type=microlib --strict --scatter "..\THDZ_Motor\THDZ_MOTOR.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
