@@ -27,5 +27,7 @@ extern float HallY_M[2];
 #define HallAdcCalib 9 //HALL采样校正
 
 void FSM_SoftShut();
+void FSM_AxisHallCalib();
+void FSM_HallAdcCalib();
 
 #endif
