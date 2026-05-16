@@ -53,9 +53,9 @@ void TOP_PLL_Loop(Top_Pll_t *Top_Hall, float alfa, float beta, float Ts, float n
 
 void NOTOP_PLL_Loop(Top_Pll_t *Top_Hall, float alfa, float beta, float Ts, float np, float delta)
 {
-    static uint16_t num     = 0;
-    float Amplitude         = 1000;
-    float d_theta           = 0;
+    static uint16_t num = 0;
+    float Amplitude     = 1000;
+    float d_theta       = 0;
 
     alfa = alfa / (Top_Hall->amplitude * Amplitude);
     beta = beta / (Top_Hall->amplitude * Amplitude);
@@ -85,15 +85,14 @@ void NOTOP_PLL_Loop(Top_Pll_t *Top_Hall, float alfa, float beta, float Ts, float
             Top_Hall->amplitude = 0.8 * Top_Hall->amplitude + 0.2 * (alfa * sinf(Top_Hall->theta_e - delta) + beta * cosf(Top_Hall->theta_e));
             num                 = 0;
         }
-    }
-    else{
+    } else {
         num = 0;
     }
 }
 
 /*----------compensation-----------*/
 
-int16_t comp_I[COMP_TABLE_SIZE] = {0};
+int16_t comp_I[COMP_TABLE_SIZE]      = {0};
 uint8_t calib_valid[COMP_TABLE_SIZE] = {0};
 uint8_t calib_done                   = 1;
 
@@ -107,59 +106,57 @@ void Axis_Pos_Comp_Loop(void)
     }
     theta_I = (int16_t)(theta_f / TPI_PGY * 65535);
 
-    if (align_flag) {
-        // 标定阶段
-        if (!calib_done) {
-            // 计算当前theta_I对应的索引 (0~359)
-            int32_t idx32 = ((int32_t)theta_I - INT16_MIN) * COMP_TABLE_SIZE / RANGE;
-            uint16_t idx  = (uint16_t)idx32;
-            if (idx >= COMP_TABLE_SIZE) idx = COMP_TABLE_SIZE - 1;
+    // 标定阶段
+    if ((!calib_done) && (align_flag)) {
+        // 计算当前theta_I对应的索引 (0~359)
+        int32_t idx32 = ((int32_t)theta_I - INT16_MIN) * COMP_TABLE_SIZE / RANGE;
+        uint16_t idx  = (uint16_t)idx32;
+        if (idx >= COMP_TABLE_SIZE) idx = COMP_TABLE_SIZE - 1;
 
-            // 当theta_I处于该区间中心附近±30范围内时记录补偿值
-            int32_t center = INT16_MIN + (idx32 * RANGE / COMP_TABLE_SIZE) + (RANGE / (2 * COMP_TABLE_SIZE));
-            if (theta_I >= center - 30 && theta_I <= center + 30) {
-                comp_I[idx]      = theta_I - Top_Axis_Hall.TOP_PLL_Theta;
-                calib_valid[idx] = 1;
-            }
-
-            // 检查是否所有区间都已标定
-            uint8_t all_done = 1;
-            for (uint16_t i = 0; i < COMP_TABLE_SIZE; i++) {
-                if (!calib_valid[i]) {
-                    all_done = 0;
-                    break;
-                }
-            }
-            if (all_done) {
-                calib_done = 1;
-            }
-            return; // 标定阶段不输出补偿
+        // 当theta_I处于该区间中心附近±30范围内时记录补偿值
+        int32_t center = INT16_MIN + (idx32 * RANGE / COMP_TABLE_SIZE) + (RANGE / (2 * COMP_TABLE_SIZE));
+        if (theta_I >= center - 30 && theta_I <= center + 30) {
+            comp_I[idx]      = theta_I - Top_Axis_Hall.TOP_PLL_Theta;
+            calib_valid[idx] = 1;
         }
 
-        // 补偿阶段
-        if (calib_done) {
-            // 计算索引及区间边界
-            int32_t idx32 = ((int32_t)theta_I - INT16_MIN) * COMP_TABLE_SIZE / RANGE;
-            uint16_t idx  = (uint16_t)idx32;
-            if (idx >= COMP_TABLE_SIZE) idx = COMP_TABLE_SIZE - 1;
-
-            uint16_t idx_next = (idx == COMP_TABLE_SIZE - 1) ? 0 : idx + 1;
-
-            int32_t lower = INT16_MIN + (idx32 * RANGE / COMP_TABLE_SIZE);
-            int32_t upper = INT16_MIN + ((idx32 + 1) * RANGE / COMP_TABLE_SIZE);
-
-            // 线性插值计算补偿值
-            int32_t delta_comp = (int32_t)comp_I[idx_next] - comp_I[idx];
-            int32_t range      = upper - lower;
-            int32_t offset     = (int32_t)theta_I - lower;
-
-            int32_t comp_val = comp_I[idx];
-            if (range != 0) {
-                comp_val += (delta_comp * offset) / range;
+        // 检查是否所有区间都已标定
+        uint8_t all_done = 1;
+        for (uint16_t i = 0; i < COMP_TABLE_SIZE; i++) {
+            if (!calib_valid[i]) {
+                all_done = 0;
+                break;
             }
-
-            // 输出补偿后的位置
-            Theta_O = Top_Axis_Hall.TOP_PLL_Theta + (int16_t)comp_val;
         }
+        if (all_done) {
+            calib_done = 1;
+        }
+        return; // 标定阶段不输出补偿
+    }
+
+    // 补偿阶段
+    if (calib_done) {
+        // 计算索引及区间边界
+        int32_t idx32 = ((int32_t)theta_I - INT16_MIN) * COMP_TABLE_SIZE / RANGE;
+        uint16_t idx  = (uint16_t)idx32;
+        if (idx >= COMP_TABLE_SIZE) idx = COMP_TABLE_SIZE - 1;
+
+        uint16_t idx_next = (idx == COMP_TABLE_SIZE - 1) ? 0 : idx + 1;
+
+        int32_t lower = INT16_MIN + (idx32 * RANGE / COMP_TABLE_SIZE);
+        int32_t upper = INT16_MIN + ((idx32 + 1) * RANGE / COMP_TABLE_SIZE);
+
+        // 线性插值计算补偿值
+        int32_t delta_comp = (int32_t)comp_I[idx_next] - comp_I[idx];
+        int32_t range      = upper - lower;
+        int32_t offset     = (int32_t)theta_I - lower;
+
+        int32_t comp_val = comp_I[idx];
+        if (range != 0) {
+            comp_val += (delta_comp * offset) / range;
+        }
+
+        // 输出补偿后的位置
+        Theta_O = Top_Axis_Hall.TOP_PLL_Theta + (int16_t)comp_val;
     }
 }

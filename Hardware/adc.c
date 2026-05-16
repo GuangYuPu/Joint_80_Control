@@ -510,7 +510,7 @@ void ADC_IRQHandler(void) // ADC中断
 
         case WriteToFlash: {
             //-----------Write to Flash Begin------------
-            // WriteToFlash_FLAG = 1;
+            WriteToFlash_FLAG = 1;
             //-----------Write to Flash End--------------
             motor_status = Standby;
             break;
