@@ -449,6 +449,7 @@ void ADC_IRQHandler(void) // ADC中断
         }
 
         case AtoCalib: {
+            TimGpioReInit();
             OrthAUTOCalib();
             break;
         }

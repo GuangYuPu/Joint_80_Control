@@ -285,6 +285,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>WriteToFlash_FLAG,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>27</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>TIM1,0x0A</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>
